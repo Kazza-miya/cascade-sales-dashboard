@@ -1,0 +1,5 @@
+# 秘密情報は絶対コミットしない
+serviceAccount.json
+.env
+__pycache__/
+.venv/

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Firebase Google Login</title>
+  <!-- Firebase Compat SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+  <h1>Google ログイン & IDトークン取得</h1>
+  <button id="login-btn">Google でログイン</button>
+  <h2>取得したトークン（コピーしてください）</h2>
+  <textarea id="token" rows="5" cols="80"></textarea>
+
+  <script>
+    // ここを .env の設定と同じ値に書き換えてください
+    const firebaseConfig = {
+      apiKey: "AIzaSyD6-_F_5y-1w-xoShiTkNeH-wk0JTwBpjI",
+      authDomain: "cascade-sales-dashboard.firebaseapp.com",
+      projectId: "cascade-sales-dashboard"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    document.getElementById("login-btn").onclick = async () => {
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const result   = await firebase.auth().signInWithPopup(provider);
+        const token    = await result.user.getIdToken();
+        document.getElementById("token").value = token;
+      } catch (e) {
+        alert("ログイン失敗: " + e);
+      }
+    };
+  </script>
+</body>
+</html>
